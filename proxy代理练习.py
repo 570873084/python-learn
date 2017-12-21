@@ -9,8 +9,8 @@ import  urllib.request
 #代理开关，表示代理是否开关
 proxyswitch = True
 #构建一个handler代理对象，参数为字典类型，key值为代理类型，value值为代理IP：端口号
-#代理地址在www.xicidaili.com上找的，很多代理IP不能用
-httpproxy = urllib.request.ProxyHandler({'http':'61.135.217.7:80'})
+#代理地址在www.xicidaili.com上找的，很多代理IP不能用，私密代理格式为{"http" : "user：passwd&IP：端口号"}
+httpproxy = urllib.request.ProxyHandler({'http':'112.114.98.44:8118'})
 #构建一个无代理handler
 nullproxy = urllib.request.ProxyHandler({})
 
@@ -28,7 +28,7 @@ response = urllib.request.urlopen(request)
 
 print(response.read().decode('utf-8'))
 '''请求一次，打开方式
-r = opener.open('http://www.baidu.com/')
-print(r.read)
-'''
+r = opener.open('http://www.sougou.com/')
+print(r.read().decode('utf-8'))
 
+'''
