@@ -19,6 +19,12 @@ url = 'http://www.renren.com/PLogin.do'
 data = {'email':'18857665584','password':'33655869'}
 #解码data
 data = urllib.parse.urlencode(data).encode()
+#第一次是post请求，发送登陆需要的参数，获取cookie
 request  = urllib.request.Request(url,data = data)
+#发送第一次post请求，生成登陆后的cookie（需要登陆成功）
 response = opener.open(request)
-print(response.read().decode('utf-8'))
+#print(response.read().decode('utf-8')
+#此次为get请求，这个请求将之前保存下来的cookie一并发送到web服务器，服务器会验证cookie通过
+response_ziliao = opener.open('http://www.renren.com/896519956/profile?v=info_timeline')
+print(response_ziliao.read().decode())
+
