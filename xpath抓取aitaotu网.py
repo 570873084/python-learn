@@ -36,31 +36,6 @@ class Spider:
             #重新组合后的链接，再次打开，爬取翻页链接
             spider.page_url(new_link)
 
-    def open_img(self,img_url):
-        '''爬取每一页的大图链接和图片名称，并组合成一个字典组合'''
-        #传入每一页链接，并打开页面
-        img_html = spider.open_url(img_url)
-        content = etree.HTML(img_html)
-        #抓取图片标题,做文件夹名使用
-        '''title = content.xpath('//div[@class="photo"]//div/h1/text()')
-        if not os.path.exists('d:/imgs/%s'%(title[0])):
-            os.mkdir('d:/imgs/%s'%(title[0]))'''
-        #抓取的大图链接列表
-        img_list = content.xpath('//div[@class="big-pic"]/div/p//img/@src')
-        #抓取的图片名称
-        img_name =content.xpath('//div[@class="big-pic"]/div/p//img/@alt')
-        #组合成一个字典
-        file =dict(zip(img_list,img_name))
-        #保存下载图片
-        for key in file:
-            print('正在下载'+file[key])
-            urllib.request.urlretrieve(key, 'd:/imgs/%s.jpg' % (file[key]))
-
-
-
-
-
-
 
     def page_url(self,new_link):
         '''获取末页链接，找到所有翻页的链接'''
@@ -87,6 +62,26 @@ class Spider:
             #传入每一页链接，爬取大图链接
 
             spider.open_img(img)
+
+    def open_img(self, img_url):
+        '''爬取每一页的大图链接和图片名称，并组合成一个字典组合'''
+        # 传入每一页链接，并打开页面
+        img_html = spider.open_url(img_url)
+        content = etree.HTML(img_html)
+        # 抓取图片标题,做文件夹名使用
+        '''title = content.xpath('//div[@class="photo"]//div/h1/text()')
+        if not os.path.exists('d:/imgs/%s'%(title[0])):
+            os.mkdir('d:/imgs/%s'%(title[0]))'''
+        # 抓取的大图链接列表
+        img_list = content.xpath('//div[@class="big-pic"]/div/p//img/@src')
+        # 抓取的图片名称
+        img_name = content.xpath('//div[@class="big-pic"]/div/p//img/@alt')
+        # 组合成一个字典
+        file = dict(zip(img_list, img_name))
+        # 保存下载图片
+        for key in file:
+            print('正在下载' + file[key])
+            urllib.request.urlretrieve(key, 'd:/imgs/%s.jpg' % (file[key]))
 
 
 
