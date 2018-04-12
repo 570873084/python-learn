@@ -6,14 +6,25 @@ def handle_client(client_socket):
     # 接收客户端的数据
     request_data = client_socket.recv(1024)
     print('request_data:',request_data)
-
+    #分离出请求的地址/index.html
+    #request_lines = request_data.splitlines()
+    #for i in request_lines:
+        #print(i)
     # 构建需要响应回客户端的数据
-    #response_body  =open('D:/BaiduNetdiskDownload/资料/资料/file/part07/7.2.html',encoding='utf-8').read()
+    try:
+        #二进制读取
+        response_body  =open('D:/BaiduNetdiskDownload/资料/资料/file/part07/7.2.html','rb').read()
+    except IOError:
+        response_start = 'HTTP/1.1 404 Not Found\r\n'
+        response_headers = 'Server:My Server\r\n'
+        response_body = 'The Html Not Found'
+        response = response_start + response_headers + "\r\n" + str(response_body)
+
     response_start = 'HTTP/1.1 200 OK\r\n'
     response_headers = 'Server:My Server\r\n'
-    response_body = 'hello world'
-    response = response_start + response_headers + "\r\n" + response_body
-    print('response:',response)
+    #response_body = 'hello world'
+    response = response_start + response_headers + "\r\n" + response_body.decode('utf-8')
+    #print('response:',response)
 
     # 向客户端返回响应数据，send需要bytes类型，需要转换为bytes
     client_socket.send(bytes(response,'utf-8'))
@@ -26,7 +37,7 @@ if __name__ == '__main__':
     socket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 
     # 绑定任意ip和端口，ip和端口为元组组合
-    socket.bind(("",8000))
+    socket.bind(("",8080))
 
     # 监听连接
     socket.listen(128)
