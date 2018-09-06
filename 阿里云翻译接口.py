@@ -4,7 +4,8 @@ import urllib.parse
 
 
 key  = input('请输入需要翻译的词：')
-context = context = ssl._create_unverified_context()
+#
+context = ssl._create_unverified_context()
 
 url ='https://fanyi.market.alicloudapi.com/rest/160601/mt/translate.json'
 appcode ='4a079bc226ca47ae8a40b2566bdb6679'
